@@ -2,9 +2,10 @@
   "name": "landing",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx gulp",
+    "build": "npx gulp clean && npx gulp build" 
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +25,7 @@
     "gulp-declare": "^0.3.0",
     "gulp-handlebars": "^5.0.2",
     "gulp-handlebars-html": "0.0.2",
+    "gulp-hb": "^7.0.1",
     "gulp-minify-html": "^1.0.6",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.1",
@@ -31,6 +33,7 @@
     "gulp-uglify": "^3.0.1",
     "gulp-wrap": "^0.14.0",
     "handlebars": "^4.0.11",
+    "handlebars-layouts": "^3.1.4",
     "jquery": "^3.3.1",
     "prettier": "^1.14.2"
   },

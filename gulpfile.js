@@ -11,12 +11,8 @@ const gulp = require('gulp'),
 	babel = require('gulp-babel'),
 	concat = require('gulp-concat'),
 	minifyHTML = require('gulp-minify-html'),
-	gulpHandlebars = require('gulp-compile-handlebars')
-
-const templateData = {},
-	options = {
-		batch: ['./templates/partials'],
-	}
+	hb = require('gulp-hb'),
+	layouts = require('handlebars-layouts')
 
 gulp.task('serve', ['sass', 'html'], function() {
 	browserSync.init({
@@ -61,9 +57,15 @@ gulp.task('sass', function() {
 
 gulp.task('html', function() {
 	return gulp
-		.src('templates/*.hbs')
-		.pipe(gulpHandlebars(templateData, options))
-		.pipe(rename({ ext: '.html' }))
+		.src('./src/templates/*.hbs')
+		.pipe(
+			hb()
+				.partials('./src/templates/partials/**/*.hbs')
+				.partials('./src/templates/layouts/**/*.hbs')
+				.helpers(layouts),
+			// .data('./src/data/**/*.{js,json}'),
+		)
+		.pipe(rename({ extname: '.html' }))
 		.pipe(gulp.dest('src'))
 		.pipe(browserSync.stream())
 })
@@ -92,9 +94,15 @@ gulp.task('js:build', function() {
 
 gulp.task('html:build', function() {
 	return gulp
-		.src('templates/*.hbs')
-		.pipe(gulpHandlebars(templateData, options))
-		.pipe(rename({ ext: '.html' }))
+		.src('./src/templates/*.hbs')
+		.pipe(
+			hb()
+				.partials('./src/templates/partials/**/*.hbs')
+				.partials('./src/templates/layouts/**/*.hbs')
+				.helpers(layouts),
+			// .data('./src/data/**/*.{js,json}'),
+		)
+		.pipe(rename({ extname: '.html' }))
 		.pipe(minifyHTML())
 		.pipe(gulp.dest('dist'))
 })
